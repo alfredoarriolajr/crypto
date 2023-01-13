@@ -24,7 +24,6 @@ export default function Home() {
     const [error, setError] = useState(null);
     const [maskImage, setMaskImage] = useState(null);
     const [userUploadedImage, setUserUploadedImage] = useState(null);
-    console.log('userUploadedImage', userUploadedImage);
     const [user, setUser] = useState(false);
     const [newNft, setNewNft] = useState(null);
     const [showNFT, setShowNFT] = useState(false);
@@ -73,7 +72,7 @@ export default function Home() {
                 metadata: {
                     title: 'Cryptonized.net',
                     description: 'An AI Generated NFT',
-                    media: lastItem?.output || newMedia,
+                    media: lastItem?.output[0] || newMedia,
                 },
                 receiver_id: user,
             },

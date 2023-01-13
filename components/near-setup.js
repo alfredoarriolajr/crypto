@@ -5,7 +5,7 @@ import {
     utils as nearUtils,
 } from 'near-api-js';
 
-export const CONTRACT_ID = 'app.cryptonized.testnet';
+export const CONTRACT_ID = 'nft.cryptonized.testnet';
 
 export const initNear = () => {
     //Testnet config
