@@ -1,0 +1,22 @@
+{
+  "name": "Cryptonized",
+  "version": "1.0.0",
+  "description": "Cryptonized NFT Generator",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "yarn build:nft && yarn build:market",
+    "build:nft": "near-sdk-js build src/nft-contract/index.ts build/nft.wasm",
+    "build:market": "near-sdk-js build src/market-contract/index.ts build/market.wasm",
+    "deploy:nft": "near dev-deploy --wasmFile build/nft.wasm",
+    "test": "ava"
+  },
+  "author": "Near Inc <hello@nearprotocol.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "near-sdk-js": "0.4.0-5"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
