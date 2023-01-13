@@ -15,6 +15,7 @@ import {
     initNear,
 } from 'components/near-setup';
 import { useRouter } from 'next/router';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -23,9 +24,12 @@ export default function Home() {
     const [error, setError] = useState(null);
     const [maskImage, setMaskImage] = useState(null);
     const [userUploadedImage, setUserUploadedImage] = useState(null);
+    console.log('userUploadedImage', userUploadedImage);
     const [user, setUser] = useState(false);
     const [newNft, setNewNft] = useState(null);
     const [showNFT, setShowNFT] = useState(false);
+    const [newMedia, setNewMedia] = useState('');
+    const supabase = useSupabaseClient();
     const id = uuid();
     const lastItem = predictions[predictions.length - 1];
     const router = useRouter();
@@ -36,18 +40,30 @@ export default function Home() {
     useEffect(() => {
         if (wallet.getAccountId()) {
             setUser(wallet.getAccountId());
-            // console.log('user', user);
-            // console.log('contract', wallet._near.config.owner_id);
             viewFunction('nft_tokens_for_owner', {
                 account_id: wallet.getAccountId(),
             }).then((res) => {
-                // console.log('res', res);
                 setNewNft(res);
             });
         }
     }, [user]);
-    // console.log('userUploadedImage: ', userUploadedImage);
-    // console.log('predictions', lastItem?.output);
+
+    useEffect(() => {
+        if (userUploadedImage)  {
+            const { data, error } = supabase.storage
+                .from('cryptonized')
+                .upload(id, userUploadedImage);
+            setNewMedia(
+                `https://wltimvhurxpqqsrwdenw.supabase.co/storage/v1/object/public/cryptonized/${id}`
+            );
+            if (data) {
+                console.log('data', data);
+            }
+            if (error) {
+                console.log('error', error);
+            }
+        }
+    }, [userUploadedImage]);
 
     const createNFT = async () => {
         await callFunction(
@@ -57,7 +73,7 @@ export default function Home() {
                 metadata: {
                     title: 'Cryptonized.net',
                     description: 'An AI Generated NFT',
-                    media: lastItem.output || userUploadedImage,
+                    media: lastItem?.output || newMedia,
                 },
                 receiver_id: user,
             },
@@ -176,14 +192,6 @@ export default function Home() {
                                         <p className='text-gray-700 text-base mb-4'>
                                             {token.metadata.description}
                                         </p>
-                                        {/* <button
-                                            onClick={() => {
-                                                handleTransfer(token.token_id);
-                                            }}
-                                            type='button'
-                                            className=' inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'>
-                                            Transfer NFT
-                                        </button> */}
                                     </div>
                                 </div>
                             ))}
@@ -198,7 +206,6 @@ export default function Home() {
                     />
                     <div
                         className='bg-gray-50 relative max-h-[512px] w-full flex items-stretch'
-                        // style={{ height: 0, paddingBottom: "100%" }}
                     >
                         <Canvas
                             predictions={predictions}
