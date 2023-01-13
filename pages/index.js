@@ -34,8 +34,8 @@ export default function About() {
                     model generate a new image.
                 </li>
             </ol>
-            <div class='max-w-screen-xl px-4 pt-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8'>
-                <p class='mt-16 text-base leading-6 text-center'>
+            <div className='max-w-screen-xl px-4 pt-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8'>
+                <p className='mt-16 text-base leading-6 text-center'>
                     © 2023 Cryptonized.net by{' '}
                     <a
                         href='https://www.linkedin.com/in/alfredoarriolajr/'
