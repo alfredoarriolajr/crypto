@@ -14,6 +14,7 @@ import {
     callFunction,
     initNear,
 } from 'components/near-setup';
+import { useRouter } from 'next/router';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -27,6 +28,7 @@ export default function Home() {
     const [showNFT, setShowNFT] = useState(false);
     const id = uuid();
     const lastItem = predictions[predictions.length - 1];
+    const router = useRouter();
     useEffect(() => {
         initNear();
     }, []);
@@ -34,18 +36,18 @@ export default function Home() {
     useEffect(() => {
         if (wallet.getAccountId()) {
             setUser(wallet.getAccountId());
-            console.log('user', user);
-            console.log('contract', wallet._near.config.owner_id);
+            // console.log('user', user);
+            // console.log('contract', wallet._near.config.owner_id);
             viewFunction('nft_tokens_for_owner', {
                 account_id: wallet.getAccountId(),
             }).then((res) => {
-                console.log('res', res);
+                // console.log('res', res);
                 setNewNft(res);
             });
         }
     }, [user]);
-    console.log('userUploadedImage: ', userUploadedImage);
-    console.log('predictions', lastItem?.output);
+    // console.log('userUploadedImage: ', userUploadedImage);
+    // console.log('predictions', lastItem?.output);
 
     const createNFT = async () => {
         await callFunction(
@@ -247,6 +249,7 @@ export default function Home() {
                                 signOut();
                                 setUser(false);
                                 setNewNft([]);
+                                router.push('/');
                             }}
                             className='py-3 block w-full text-center bg-black text-white rounded-md mt-10'>
                             Log Out

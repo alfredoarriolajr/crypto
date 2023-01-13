@@ -14,7 +14,7 @@ import sample from "lodash/sample";
 
 export default function PromptForm(props) {
   const [prompt] = useState(sample(samplePrompts));
-  console.log('prompt', prompt);
+  // console.log('prompt', prompt);
   const [image, setImage] = useState(null);
 
   return (

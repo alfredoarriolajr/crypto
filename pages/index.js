@@ -1,6 +1,5 @@
 
 import Head from 'next/head';
-import Link from 'next/link';
 import Home from '../components/paint';
 
 export default function About() {
