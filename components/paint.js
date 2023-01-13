@@ -152,26 +152,26 @@ export default function Home() {
                 {showNFT && (
                     <div className='text-2xl border-t-4 border-b-4 py-4 my-4'>
                         <h1>Your NFTs</h1>
-                        <div class='flex flex-wrap'>
+                        <div className='flex flex-wrap'>
                             {newNft.map((token) => (
                                 <div
-                                    class='rounded-lg shadow-lg bg-white p-1 border m-1'
+                                    className='rounded-lg shadow-lg bg-white p-1 border m-1'
                                     key={token.token_id}>
                                     <a
                                         href='#!'
                                         data-mdb-ripple='true'
                                         data-mdb-ripple-color='light'>
                                         <img
-                                            class='rounded-t-lg w-full'
+                                            className='rounded-t-lg w-full'
                                             src={token.metadata.media}
                                             alt={token.metadata.title}
                                         />
                                     </a>
-                                    <div class='p-6'>
-                                        <h5 class='text-gray-900 text-xl font-medium mb-2'>
+                                    <div className='p-6'>
+                                        <h5 className='text-gray-900 text-xl font-medium mb-2'>
                                             {token.metadata.title}
                                         </h5>
-                                        <p class='text-gray-700 text-base mb-4'>
+                                        <p className='text-gray-700 text-base mb-4'>
                                             {token.metadata.description}
                                         </p>
                                         <button
@@ -179,7 +179,7 @@ export default function Home() {
                                                 handleTransfer(token.token_id);
                                             }}
                                             type='button'
-                                            class=' inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'>
+                                            className=' inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'>
                                             Transfer NFT
                                         </button>
                                     </div>
